@@ -46,18 +46,11 @@ subprojects {
     }
 
     tasks.processResources {
-        val props = mapOf("version" to rootProject.version)
-        inputs.properties.putAll(props)
         filteringCharset = "UTF-8"
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
         filesNotMatching("**/*.zip") {
-            expand(props)
+            expand("version" to rootProject.version)
         }
     }
-}
-
-ext {
-    set("ossrhUsername", System.getenv("OSSRH_USERNAME") ?: listOf("ossrhUsername"))
-    set("ossrhPassword", System.getenv("OSSRH_PASSWORD") ?: listOf("ossrhPassword"))
 }

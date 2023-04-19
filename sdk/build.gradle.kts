@@ -9,6 +9,11 @@ java {
     withSourcesJar()
 }
 
+ext {
+    set("ossrhUsername", System.getenv("OSSRH_USERNAME") ?: properties["ossrhUsername"])
+    set("ossrhPassword", System.getenv("OSSRH_PASSWORD") ?: properties["ossrhPassword"])
+}
+
 publishing {
     publications {
         create<MavenPublication>("sdk") {
