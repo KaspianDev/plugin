@@ -1,20 +1,11 @@
-plugins {
-    id("net.kyori.blossom") version "1.2.0"
-}
-
 group = rootProject.group
 version = rootProject.version
-
-blossom {
-    replaceToken("@VERSION@", version)
-}
 
 dependencies {
     implementation(project(":sdk"))
     implementation("net.sf.trove4j:trove4j:3.0.3") // Add trove4j dependency
 
-    compileOnly("com.velocitypowered:velocity-api:3.1.1")
-    annotationProcessor("com.velocitypowered:velocity-api:3.1.1")
+    compileOnly("net.md-5:bungeecord-api:1.18-R0.1-SNAPSHOT")
     compileOnly("dev.dejvokep:boosted-yaml:1.3")
 }
 
@@ -28,4 +19,9 @@ tasks.shadowJar {
     relocate("org.jetbrains.annotations", "net.analyse.plugin.libs.jetbrains") // Relocate jetbrains
     relocate("kotlin", "net.analyse.plugin.libs.kotlin") // Relocate jetbrains
     minimize()
+
+//    minimize {
+//        exclude(project(":geyser-bridge"))
+//        exclude(project(":geyser-common"))
+//    }
 }

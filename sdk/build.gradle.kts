@@ -1,7 +1,7 @@
 plugins {
-    id 'java'
-    id 'maven-publish'
-    id 'signing'
+    java
+    `maven-publish`
+    `signing`
 }
 
 java {
@@ -11,9 +11,9 @@ java {
 
 publishing {
     publications {
-        sdk(MavenPublication) {
-            from components.java
-            artifactId 'sdk'
+        create<MavenPublication>("sdk") {
+            from(components["java"])
+            artifactId = "sdk"
 
             pom {
                 name.set("Analyse")
@@ -43,25 +43,25 @@ publishing {
 
     repositories {
         maven {
-            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username ossrhUsername
-                password ossrhPassword
+//                username = "${ossrhUsername}"
+//                password = "${ossrhPassword}"
             }
         }
     }
 }
 
 signing {
-    sign publishing.publications.sdk
+    sign(publishing.publications["sdk"])
 }
 
 group = rootProject.group
 version = rootProject.version
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-    implementation 'dev.dejvokep:boosted-yaml:1.3'
-    compileOnly 'com.google.code.gson:gson:2.10.1'
-    compileOnly 'com.google.guava:guava:30.1.1-jre'
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("dev.dejvokep:boosted-yaml:1.3")
+    compileOnly("com.google.code.gson:gson:2.10.1")
+    compileOnly("com.google.guava:guava:30.1.1-jre")
 }

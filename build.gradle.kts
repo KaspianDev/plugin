@@ -8,18 +8,19 @@ defaultTasks("shadowJar")
 group = "net.analyse"
 version = "2.0.0"
 
+plugins.withId("java") {
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(8))
+        }
+    }
+}
+
 subprojects {
     apply(plugin = "java")
     apply(plugin = "com.github.johnrengelman.shadow")
 
     // Add the following block
-    plugins.withId("java") {
-        java {
-            toolchain {
-                languageVersion.set(JavaLanguageVersion.of(8))
-            }
-        }
-    }
 
     tasks.shadowJar {
         archiveFileName.set("${project.name}-analyse-${rootProject.version}.jar")
